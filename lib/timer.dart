@@ -20,7 +20,7 @@ abstract class TimerBase with Store {
   TimerState state = TimerState.READY;
 
   @observable
-  int countDown = 2;
+  int countDown = 20;
 
   TimerBase() {}
 
@@ -35,7 +35,7 @@ abstract class TimerBase with Store {
     state = TimerState.TICKING;
     subscription = counter(countDown).listen((event) async {
       countDown -= event;
-      if(countDown < 0){
+      if(countDown <0){
         state = TimerState.COMPLETE;
         await audioCache.play("note1.wav");
       }
@@ -45,6 +45,7 @@ abstract class TimerBase with Store {
   @action
   reset() {
     state = TimerState.READY;
+    subscription.cancel();
   }
 
   @action

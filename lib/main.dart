@@ -60,11 +60,11 @@ class TimerCounter extends StatelessWidget {
             alignment: Alignment.center,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 0.0),
-              child: IgnorePointer(
+              child: Observer(
+                builder: (BuildContext context) =>IgnorePointer(
                 ignoring: [TimerState.TICKING, TimerState.PAUSE]
                     .contains(TimerInherited.of(context).timer.state),
-                child: Observer(
-                  builder: (BuildContext context) => SleekCircularSlider(
+                child:  SleekCircularSlider(
                     appearance: appearance05,
                     min: 0,
                     max: 1000,
@@ -95,11 +95,11 @@ class TimerCounter extends StatelessWidget {
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400),
                               ),
-                              Text(
-                                  buildTimerCounter(context, value) ?? "00:00",style:TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.w400)),
+                              Text(buildTimerCounter(context, value) ?? "00:00",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.w400)),
                               Text(
                                 'time',
                                 style: TextStyle(
@@ -204,7 +204,9 @@ class Actions extends StatelessWidget {
       return [
         FloatingActionButton(
           child: Icon(Icons.replay),
-          onPressed: () => timer.reset(),
+          onPressed: () {
+            if (timer.countDown > 1) timer.reset();
+          },
         ),
       ];
     }
