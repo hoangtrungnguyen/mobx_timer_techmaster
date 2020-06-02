@@ -34,7 +34,7 @@ abstract class TimerBase with Store {
   start() async {
     state = TimerState.TICKING;
     subscription = counter(countDown).listen((event) async {
-      countDown -= 1;
+      countDown -= event;
       if(countDown < 0){
         state = TimerState.COMPLETE;
         await audioCache.play("note1.wav");
@@ -62,7 +62,7 @@ abstract class TimerBase with Store {
   Stream<int> counter(int startVal) async* {
     for (int i = startVal; i >= 0; i--) {
       await Future.delayed(Duration(seconds: 1));
-      yield i;
+      yield 1;
     }
   }
 }

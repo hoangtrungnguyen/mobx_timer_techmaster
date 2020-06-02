@@ -85,8 +85,30 @@ class TimerCounter extends StatelessWidget {
                     innerWidget: (double value) {
                       return Align(
                           alignment: Alignment.center,
-                          child: Text(
-                              buildTimerCounter(context, value) ?? "00:00"));
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Elapsed',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                  buildTimerCounter(context, value) ?? "00:00",style:TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 36,
+                                  fontWeight: FontWeight.w400)),
+                              Text(
+                                'time',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ));
                     },
                   ),
                 ),
